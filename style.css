@@ -54,3 +54,40 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
+
+.cafe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.cafe-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e5e5;
+}
+
+.cafe-card h3 {
+    margin-top: 0;
+    color: #5b321f;
+}
+
+.cafe-card p {
+    margin: 8px 0;
+}
+
+.cafe-card a {
+    color: #8b5e3c;
+    font-weight: bold;
+}
+
+.coordinates {
+    font-size: 12px;
+    color: #777;
+}

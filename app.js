@@ -31,14 +31,62 @@ findCafesButton.addEventListener("click", function () {
 
     const data = await response.json();
 
+    if (!data.success) {
+    throw new Error(data.error || "Cafe search failed.");
+}
+
+if (data.cafes.length === 0) {
     resultsContainer.innerHTML = `
         <div>
-            <h2>Backend Connected!</h2>
-            <p>${data.message}</p>
-            <p>Latitude: ${data.latitude}</p>
-            <p>Longitude: ${data.longitude}</p>
+            <h2>No Cafes Found</h2>
+            <p>We couldn't find any cafes nearby.</p>
         </div>
     `;
+    return;
+}
+
+resultsContainer.innerHTML = `
+    <div>
+        <h2>${data.count} Cafes Found</h2>
+
+        <div class="cafe-grid">
+            ${data.cafes.map(cafe => `
+                <div class="cafe-card">
+                    <h3>${cafe.name}</h3>
+
+                    ${cafe.street
+                        ? `<p>📍 ${cafe.street}</p>`
+                        : `<p>📍 Address unavailable</p>`
+                    }
+
+                    ${cafe.openingHours
+                        ? `<p>🕒 ${cafe.openingHours}</p>`
+                        : ""
+                    }
+
+                    ${cafe.phone
+                        ? `<p>📞 ${cafe.phone}</p>`
+                        : ""
+                    }
+
+                    ${cafe.website
+                        ? `<p>
+                            <a href="${cafe.website}" target="_blank">
+                                Website
+                            </a>
+                           </p>`
+                        : ""
+                    }
+
+                    <p class="coordinates">
+                        ${Number(cafe.latitude).toFixed(5)},
+                        ${Number(cafe.longitude).toFixed(5)}
+                    </p>
+                </div>
+            `).join("")}
+        </div>
+    </div>
+`;
 } catch (error) {
                 resultsContainer.innerHTML = `
                     <div>
