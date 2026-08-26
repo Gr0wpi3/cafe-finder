@@ -1,0 +1,25 @@
+{
+  "name": "cafe-finder",
+  "version": "1.0.0",
+  "description": "A simple JavaScript web application designed to help users discover nearby cafes.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gr0wpi3/cafe-finder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Gr0wpi3/cafe-finder/issues"
+  },
+  "homepage": "https://github.com/Gr0wpi3/cafe-finder#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
