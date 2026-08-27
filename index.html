@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cafe Finder</title>
     <link rel="stylesheet" href="style.css">
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    
+/>
 </head>
 <body>
 
@@ -14,13 +23,19 @@
     </header>
 
     <main>
-        <button id="find-cafes">Find Cafes</button>
+    <button id="find-cafes">Find Cafes</button>
 
-        <section id="results">
-            <!-- Cafe results will appear here -->
-        </section>
-    </main>
+    <div id="map"></div>
 
-    <script src="app.js"></script>
+    <section id="results">
+        <!-- Cafe results will appear here -->
+    </section>
+</main>
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script src="app.js"></script>
 </body>
 </html>

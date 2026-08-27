@@ -91,3 +91,13 @@ main {
     font-size: 12px;
     color: #777;
 }
+
+#map {
+    width: 90%;
+    max-width: 1000px;
+    height: 450px;
+    margin: 30px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
