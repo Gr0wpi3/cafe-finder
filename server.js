@@ -2,113 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 
+const api = require("./api");
+
 const app = express();
 
 app.use(cors());
-app.use(express.static(path.join(__dirname)));
 
-const PORT = 3000;
+// API routes
+app.use(api);
+
+// Frontend
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.get("/api/test", (req, res) => {
-    res.json({
-        message: "Cafe Finder backend is working!"
-    });
-});
-
-app.get("/api/cafes", async (req, res) => {
-    const { lat, lng } = req.query;
-
-    if (!lat || !lng) {
-        return res.status(400).json({
-            error: "Latitude and longitude are required."
-        });
-    }
-
-    const latitude = Number(lat);
-    const longitude = Number(lng);
-
-    if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
-        return res.status(400).json({
-            error: "Invalid latitude or longitude."
-        });
-    }
-
-    const query = `
-        [out:json];
-        (
-            node["amenity"="cafe"](around:3000,${latitude},${longitude});
-            way["amenity"="cafe"](around:3000,${latitude},${longitude});
-            relation["amenity"="cafe"](around:3000,${latitude},${longitude});
-        );
-        out center;
-    `;
-
-    try {
-        const response = await fetch(
-    "https://overpass-api.de/api/interpreter",
-    {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "application/json",
-            "User-Agent": "CafeFinder/1.0 (personal learning project)"
-        },
-        body: new URLSearchParams({
-            data: query
-        })
-    }
-);
-
-        if (!response.ok) {
-            throw new Error(
-                `Overpass API returned ${response.status}`
-            );
-        }
-
-        const data = await response.json();
-
-        const cafes = data.elements.map((place) => {
-            const tags = place.tags || {};
-
-            const latitude =
-                place.lat ?? place.center?.lat;
-
-            const longitude =
-                place.lon ?? place.center?.lon;
-
-            return {
-                id: place.id,
-                name: tags.name || "Unnamed Cafe",
-                latitude,
-                longitude,
-                address: tags["addr:full"] || null,
-                street: tags["addr:street"] || null,
-                phone: tags.phone || null,
-                website: tags.website || null,
-                openingHours: tags.opening_hours || null
-            };
-        });
-
-        res.json({
-            success: true,
-            count: cafes.length,
-            cafes
-        });
-
-    } catch (error) {
-        console.error("Cafe search error:", error);
-
-        res.status(500).json({
-            success: false,
-            error: "Failed to search for nearby cafes."
-        });
-    }
-});
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Cafe Finder server running at http://localhost:${PORT}`);
+    console.log(`Cafe Finder running on http://localhost:${PORT}`);
 });
