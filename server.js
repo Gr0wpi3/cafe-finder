@@ -109,4 +109,6 @@ app.get("/api/cafes", async (req, res) => {
     }
 });
 
-module.exports = app;
+app.listen(PORT, () => {
+    console.log(`Cafe Finder server running at http://localhost:${PORT}`);
+});
