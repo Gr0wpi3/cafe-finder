@@ -1,16 +1,27 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
 
+// Serve frontend files from project root
+app.use(express.static(path.join(process.cwd())));
+
+// Homepage
+app.get("/", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "index.html"));
+});
+
+// Test API
 app.get("/api/test", (req, res) => {
     res.json({
         message: "Cafe Finder backend is working!"
     });
 });
 
+// Cafe search API
 app.get("/api/cafes", async (req, res) => {
     const { lat, lng } = req.query;
 
