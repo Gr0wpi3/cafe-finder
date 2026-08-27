@@ -64,9 +64,8 @@ userMarker = L.marker([latitude, longitude])
     .bindPopup("<strong>📍 You are here</strong>");
 
             try {
-                const response = await fetch(
-                    `/api/cafes?lat=${latitude}&lng=${longitude}`
-                );
+                const response = await fetch(`/api/cafes?lat=${latitude}&lng=${longitude}`)
+                ;
 
                 const data = await response.json();
 
